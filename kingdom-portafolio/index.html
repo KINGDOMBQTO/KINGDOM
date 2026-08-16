@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KINGDOM — Ramses Martínez | Diseño Textil & Digitalización de Bordado Industrial</title>
+<meta name="description" content="Kingdom — estudio de diseño textil de Ramses Martínez. Digitalización de bordado industrial, ilustración vectorial y sublimación de gran formato en Barquisimeto, Venezuela.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131313;
+    --panel:#1c1c1c;
+    --charcoal:#3a3a3a;
+    --steel:#6f6f6f;
+    --smoke:#c9c8c4;
+    --bone:#f1efe9;
+    --paper:#faf9f6;
+    --yellow:#ffc500;
+    --yellow-dim:#caa000;
+    --wine:#6e0f1d;
+    --wine-bright:#8c1526;
+    --stitch: repeating-linear-gradient(90deg, currentColor 0 8px, transparent 8px 16px);
+    --ease: cubic-bezier(.16,.84,.44,1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+  }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  @media (max-width:700px){ .wrap{padding:0 20px;} }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--wine);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:16px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px; height:2px;
+    background:var(--yellow);
+    display:inline-block;
+  }
+  h1,h2,h3{
+    font-family:'Archivo Black', sans-serif;
+    line-height:1.02;
+    letter-spacing:-.01em;
+    text-transform:uppercase;
+  }
+
+  /* ---------- thread rail (signature element) ---------- */
+  .thread-rail{
+    position:fixed; left:0; top:0; bottom:0; width:4px;
+    z-index:60; pointer-events:none;
+    background:linear-gradient(var(--charcoal), var(--charcoal)) left/1px 100% no-repeat;
+  }
+  .thread-rail::before{
+    content:"";
+    position:absolute; left:1px; top:0; width:3px; height:0%;
+    background:repeating-linear-gradient(180deg, var(--yellow) 0 10px, transparent 10px 20px);
+    transition:height .08s linear;
+  }
+  .thread-rail.filled::before{ height:var(--fill, 0%); }
+  @media (max-width:820px){ .thread-rail{display:none;} }
+
+  /* ---------- nav : liquid glass ---------- */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding:18px 0;
+    transition:padding .35s var(--ease);
+  }
+  header.nav .bar{
+    max-width:1180px; margin:0 auto; padding:0 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  @media (max-width:700px){ header.nav .bar{padding:0 20px;} }
+  .glass{
+    background:rgba(20,20,20,.38);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:0 8px 32px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.10);
+  }
+  header.nav.scrolled{ padding:10px 0; }
+  header.nav.scrolled .bar{
+    border-radius:999px;
+    padding:8px 10px 8px 20px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Archivo Black', sans-serif;
+    font-size:15px; letter-spacing:.04em;
+    color:var(--bone);
+    text-transform:uppercase;
+  }
+  .brand img{height:26px; width:auto;}
+  nav.links{ display:flex; gap:28px; }
+  nav.links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--smoke);
+    position:relative;
+    padding:6px 2px;
+    transition:color .25s;
+  }
+  nav.links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1.5px;
+    background:var(--yellow); transition:width .3s var(--ease);
+  }
+  nav.links a:hover{ color:var(--bone); }
+  nav.links a:hover::after{ width:100%; }
+  .nav-cta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--yellow); color:var(--ink);
+    padding:10px 18px; border-radius:999px;
+    font-weight:700;
+  }
+  .burger{ display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
+  .burger span{ width:22px; height:2px; background:var(--bone); display:block; }
+  @media (max-width:820px){
+    nav.links{
+      position:fixed; inset:0 0 0 auto; width:78%; max-width:320px;
+      background:rgba(15,15,15,.97); flex-direction:column; justify-content:center; gap:26px;
+      padding:40px; transform:translateX(100%); transition:transform .4s var(--ease);
+    }
+    nav.links.open{ transform:translateX(0); }
+    nav.links a{ font-size:15px; }
+    .burger{ display:flex; }
+    .nav-cta{ display:none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; min-height:100svh;
+    display:flex; align-items:flex-end;
+    background:var(--ink);
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background:url('assets/hero-banner.jpg') center 30%/cover no-repeat;
+    filter:grayscale(.35) contrast(1.08);
+    transform:scale(1.12) translateY(0);
+    will-change:transform;
+  }
+  .hero-bg::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.35) 35%, rgba(10,10,10,.92) 100%),
+      linear-gradient(90deg, rgba(10,10,10,.75) 0%, rgba(10,10,10,.15) 55%);
+  }
+  .hero-inner{
+    position:relative; z-index:2; width:100%;
+    padding:160px 0 72px;
+  }
+  .hero-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--yellow);
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:22px;
+  }
+  .hero-tag span.dot{ width:7px; height:7px; border-radius:50%; background:var(--wine-bright); box-shadow:0 0 0 3px rgba(140,21,38,.35); }
+  h1.hero-title{
+    color:var(--paper);
+    font-size:clamp(42px, 8vw, 96px);
+    max-width:900px;
+  }
+  h1.hero-title em{
+    font-style:normal; color:var(--yellow);
+  }
+  .hero-role{
+    margin-top:22px; max-width:560px;
+    color:var(--smoke);
+    font-size:clamp(15px,2vw,18px);
+    line-height:1.55;
+    border-left:2px dashed var(--wine-bright);
+    padding-left:18px;
+  }
+  .hero-meta{
+    margin-top:44px; display:flex; gap:40px; flex-wrap:wrap;
+  }
+  .hero-meta .m{ color:var(--bone); }
+  .hero-meta .m b{
+    display:block; font-family:'Archivo Black',sans-serif;
+    font-size:30px; color:var(--yellow);
+  }
+  .hero-meta .m small{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--steel);
+  }
+  .scroll-cue{
+    position:absolute; right:32px; bottom:28px; z-index:3;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    color:var(--smoke); font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em;
+  }
+  .scroll-cue .line{ width:1px; height:46px; background:linear-gradient(var(--yellow), transparent); animation:cue 1.8s infinite; }
+  @keyframes cue{ 0%{opacity:.2} 50%{opacity:1} 100%{opacity:.2} }
+  @media (max-width:700px){ .scroll-cue{display:none;} }
+
+  /* ---------- reveal ---------- */
+  .rv{ opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .rv.in{ opacity:1; transform:none; }
+  .rv-1{transition-delay:.05s} .rv-2{transition-delay:.15s} .rv-3{transition-delay:.25s} .rv-4{transition-delay:.35s} .rv-5{transition-delay:.45s} .rv-6{transition-delay:.55s}
+
+  /* ---------- section shell ---------- */
+  section{ position:relative; padding:120px 0; }
+  @media (max-width:700px){ section{padding:80px 0;} }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:56px; flex-wrap:wrap; }
+  .section-head h2{ font-size:clamp(30px,4.4vw,52px); }
+  .section-head p{ max-width:360px; color:var(--charcoal); font-size:15px; line-height:1.6; }
+  .stitch-div{ height:1px; background:var(--stitch); color:#d8d6cf; }
+
+  /* ---------- stats (perfil) ---------- */
+  .stats{ background:var(--ink); color:var(--paper); }
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  @media (max-width:820px){ .stats-grid{grid-template-columns:repeat(2,1fr);} }
+  .stat-card{
+    background:var(--ink); padding:38px 26px;
+  }
+  .stat-card .num{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(34px,5vw,52px);
+    color:var(--yellow);
+    line-height:1;
+  }
+  .stat-card .num .plus{ color:var(--wine-bright); }
+  .stat-card .lab{
+    margin-top:12px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--steel);
+  }
+  .profile-copy{
+    max-width:760px; margin:56px auto 0; text-align:center;
+    color:var(--smoke); font-size:clamp(15px,2vw,18px); line-height:1.75;
+  }
+  .profile-copy strong{ color:var(--bone); }
+
+  /* ---------- servicios ---------- */
+  .services-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
+    background:var(--charcoal);
+  }
+  @media (max-width:900px){ .services-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .services-grid{grid-template-columns:1fr;} }
+  .service{
+    background:var(--paper); padding:38px 30px;
+    transition:background .35s var(--ease), transform .35s var(--ease);
+    position:relative; overflow:hidden;
+  }
+  .service:hover{ background:var(--ink); transform:translateY(-4px); }
+  .service:hover .s-title, .service:hover .s-body{ color:var(--paper); }
+  .service:hover .s-num{ color:var(--yellow); }
+  .service .s-num{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--wine);
+    transition:color .35s;
+  }
+  .s-title{
+    font-family:'Archivo Black',sans-serif; text-transform:uppercase;
+    font-size:19px; margin:16px 0 10px; letter-spacing:-.01em;
+    transition:color .35s;
+  }
+  .s-body{ font-size:14px; line-height:1.65; color:var(--charcoal); transition:color .35s; }
+
+  /* ---------- portfolio ---------- */
+  .work-grid{
+    display:grid; grid-template-columns:repeat(6,1fr); grid-auto-rows:150px; gap:10px;
+  }
+  @media (max-width:900px){ .work-grid{grid-template-columns:repeat(3,1fr); grid-auto-rows:120px;} }
+  @media (max-width:560px){ .work-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:100px;} }
+  .work-item{
+    position:relative; overflow:hidden; cursor:pointer;
+    background:var(--ink);
+  }
+  .w1{grid-column:span 3; grid-row:span 3;}
+  .w2{grid-column:span 3; grid-row:span 2;}
+  .w3{grid-column:span 2; grid-row:span 2;}
+  .w4{grid-column:span 2; grid-row:span 2;}
+  .w5{grid-column:span 2; grid-row:span 2;}
+  .w6{grid-column:span 3; grid-row:span 2;}
+  @media (max-width:900px){ .w1,.w2,.w3,.w4,.w5,.w6{grid-column:span 3;grid-row:span 2;} }
+  @media (max-width:560px){ .w1,.w2,.w3,.w4,.w5,.w6{grid-column:span 2;grid-row:span 2;} }
+  .work-item img{
+    width:100%; height:100%; object-fit:cover; object-position:top;
+    transition:transform .6s var(--ease), filter .5s;
+    filter:grayscale(.55) contrast(1.05);
+  }
+  .work-item:hover img{ transform:scale(1.08); filter:grayscale(0) contrast(1.05); }
+  .work-cap{
+    position:absolute; left:0; right:0; bottom:0; padding:16px;
+    background:linear-gradient(0deg, rgba(10,10,10,.92), transparent);
+    transform:translateY(60%); opacity:0; transition:all .4s var(--ease);
+  }
+  .work-item:hover .work-cap{ transform:translateY(0); opacity:1; }
+  .work-cap .wt{ font-family:'Archivo Black',sans-serif; color:var(--paper); font-size:14px; text-transform:uppercase; }
+  .work-cap .wc{ font-family:'JetBrains Mono',monospace; color:var(--yellow); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; margin-top:4px; }
+
+  /* lightbox */
+  .lightbox{
+    position:fixed; inset:0; z-index:100; background:rgba(8,8,8,.94);
+    display:flex; align-items:center; justify-content:center; padding:5vh 5vw;
+    opacity:0; pointer-events:none; transition:opacity .3s;
+  }
+  .lightbox.open{ opacity:1; pointer-events:auto; }
+  .lightbox img{ max-height:88vh; max-width:88vw; object-fit:contain; box-shadow:0 20px 60px rgba(0,0,0,.6); }
+  .lightbox .close{
+    position:absolute; top:24px; right:32px; color:var(--bone);
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.1em;
+    border:1px solid rgba(255,255,255,.3); padding:9px 16px; border-radius:999px; cursor:pointer; background:none;
+  }
+
+  /* ---------- experiencia (thread timeline) ---------- */
+  .timeline{ position:relative; padding-left:34px; }
+  .timeline::before{
+    content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px;
+    background:repeating-linear-gradient(180deg, var(--wine) 0 8px, transparent 8px 16px);
+  }
+  .tl-item{ position:relative; padding-bottom:56px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:""; position:absolute; left:-34px; top:4px; width:13px; height:13px; border-radius:50%;
+    background:var(--yellow); border:3px solid var(--paper); box-shadow:0 0 0 2px var(--wine);
+  }
+  .tl-date{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.08em; color:var(--wine); text-transform:uppercase;
+  }
+  .tl-role{ font-family:'Archivo Black',sans-serif; font-size:clamp(19px,2.6vw,26px); text-transform:uppercase; margin:8px 0 4px; }
+  .tl-org{ font-size:14px; color:var(--charcoal); margin-bottom:14px; }
+  .tl-body{ max-width:640px; }
+  .tl-body li{ list-style:none; font-size:14.5px; line-height:1.7; color:var(--charcoal); margin-bottom:8px; padding-left:18px; position:relative; }
+  .tl-body li::before{ content:"—"; position:absolute; left:0; color:var(--wine); }
+
+  /* ---------- kingdom brand / liquid glass showcase ---------- */
+  .brand-section{
+    background:var(--ink); color:var(--paper);
+    position:relative; overflow:hidden;
+  }
+  .brand-section::before{
+    content:""; position:absolute; inset:0;
+    background:url('assets/streetwear-tag.png') no-repeat center 90%;
+    background-size:640px; opacity:.06; filter:brightness(3);
+    pointer-events:none;
+  }
+  .brand-flex{
+    display:grid; grid-template-columns:1.1fr .9fr; gap:60px; align-items:center; position:relative; z-index:1;
+  }
+  @media (max-width:900px){ .brand-flex{grid-template-columns:1fr;} }
+  .brand-copy .eyebrow{ color:var(--yellow); }
+  .brand-copy .eyebrow::before{ background:var(--wine-bright); }
+  .brand-copy h2{ color:var(--paper); font-size:clamp(30px,4.4vw,48px); margin-bottom:20px; }
+  .brand-copy p{ color:var(--smoke); font-size:15.5px; line-height:1.75; margin-bottom:16px; max-width:520px; }
+  .brand-links{ display:flex; gap:14px; margin-top:28px; flex-wrap:wrap; }
+  .brand-links a{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;
+    padding:12px 20px; border:1px solid rgba(255,255,255,.22); border-radius:999px; color:var(--bone);
+    transition:all .3s;
+  }
+  .brand-links a:hover{ background:var(--yellow); color:var(--ink); border-color:var(--yellow); }
+
+  /* liquid glass card */
+  .glass-card{
+    border-radius:24px; padding:34px;
+    background:rgba(255,255,255,.06);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
+    border:1px solid rgba(255,255,255,.16);
+    box-shadow:0 20px 60px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.14);
+    position:relative;
+  }
+  .glass-card img.logo-float{
+    width:120px; margin-bottom:22px;
+    filter:drop-shadow(0 8px 20px rgba(255,197,0,.25));
+  }
+  .glass-card h3{ color:var(--paper); font-size:22px; margin-bottom:14px; }
+  .glass-card ul{ list-style:none; }
+  .glass-card li{
+    font-size:13.5px; color:var(--smoke); padding:10px 0; border-bottom:1px dashed rgba(255,255,255,.14);
+    display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; letter-spacing:.02em;
+  }
+  .glass-card li span:last-child{ color:var(--yellow); }
+
+  /* ---------- skills ---------- */
+  .skills-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+  @media (max-width:820px){ .skills-wrap{grid-template-columns:1fr; gap:36px;} }
+  .skill-row{ margin-bottom:20px; }
+  .skill-top{ display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
+  .skill-top .lvl{ color:var(--wine); }
+  .skill-bar{ height:7px; background:#e7e5de; border-radius:3px; overflow:hidden; }
+  .skill-fill{ height:100%; background:linear-gradient(90deg, var(--wine), var(--yellow)); width:0%; border-radius:3px; transition:width 1.1s var(--ease); }
+  .skill-row.in .skill-fill{ width:var(--w); }
+
+  /* ---------- contact ---------- */
+  .contact{ background:var(--ink); color:var(--paper); position:relative; }
+  .contact-grid{ display:grid; grid-template-columns:1.2fr .8fr; gap:60px; }
+  @media (max-width:900px){ .contact-grid{grid-template-columns:1fr;} }
+  .contact h2{ color:var(--paper); font-size:clamp(36px,6vw,68px); margin-bottom:22px; }
+  .contact p.lead{ color:var(--smoke); font-size:16px; max-width:480px; line-height:1.7; margin-bottom:34px; }
+  .cta-btn{
+    display:inline-flex; align-items:center; gap:12px;
+    background:var(--yellow); color:var(--ink); font-weight:700;
+    padding:18px 30px; border-radius:999px;
+    font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:.06em; text-transform:uppercase;
+    transition:transform .3s var(--ease), box-shadow .3s;
+  }
+  .cta-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(255,197,0,.25); }
+  .contact-list{ margin-top:40px; }
+  .contact-list a, .contact-list div{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 0; border-bottom:1px solid rgba(255,255,255,.12);
+    font-family:'JetBrains Mono',monospace; font-size:13px;
+  }
+  .contact-list .k{ color:var(--steel); text-transform:uppercase; letter-spacing:.06em; font-size:11px; }
+  .contact-list .v{ color:var(--bone); }
+  .contact-list a .v:hover{ color:var(--yellow); }
+  .contact-card{
+    border-radius:24px; padding:36px;
+    background:rgba(255,255,255,.05);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    border:1px solid rgba(255,255,255,.14);
+  }
+  .contact-card .eyebrow{ color:var(--yellow); }
+  .contact-card .eyebrow::before{ background:var(--wine-bright); }
+  .contact-card p{ color:var(--smoke); font-size:14px; line-height:1.7; margin-bottom:18px; }
+  .lang-row{ display:flex; justify-content:space-between; font-size:13px; color:var(--bone); padding:10px 0; border-top:1px dashed rgba(255,255,255,.14); }
+  .lang-row small{ color:var(--steel); font-family:'JetBrains Mono',monospace; }
+
+  footer{
+    background:var(--ink); color:var(--steel); padding:28px 0;
+    border-top:1px solid rgba(255,255,255,.08);
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.04em;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  footer b{ color:var(--yellow); }
+</style>
+</head>
+<body>
+
+<div class="thread-rail" id="threadRail"></div>
+
+<header class="nav" id="siteNav">
+  <div class="bar glass">
+    <a href="#top" class="brand"><img src="assets/logo-yellow.png" alt="Kingdom">by Ramses Martinez</a>
+    <nav class="links" id="navLinks">
+      <a href="#perfil">Perfil</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#trabajos">Trabajos</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#kingdom">Marca</a>
+      <a href="#contacto" class="nav-cta">Contacto</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-tag"><span class="dot"></span> Barquisimeto, Venezuela — Estudio de diseño textil</div>
+    <h1 class="hero-title">Ramses Martínez<br><em>Kingdom</em> Textile Design</h1>
+    <p class="hero-role">Diseñador Gráfico Textil y Especialista en Digitalización de Bordado Industrial. Más de 10 años llevando piezas desde el boceto vectorial hasta la matriz de máquina y el control de calidad en planta.</p>
+    <div class="hero-meta">
+      <div class="m"><b>10<span style="color:var(--wine-bright)">+</span></b><small>Años de experiencia</small></div>
+      <div class="m"><b>100<span style="color:var(--wine-bright)">+</span></b><small>Bordados digitalizados / mes</small></div>
+      <div class="m"><b>60<span style="color:var(--wine-bright)">+</span></b><small>Ilustraciones de sublimación / mes</small></div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
+</section>
+
+<section class="stats" id="perfil">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--yellow)">Ficha 001 — Perfil profesional</div>
+    <div class="stats-grid rv">
+      <div class="stat-card"><div class="num">10<span class="plus">+</span></div><div class="lab">Años en producción textil</div></div>
+      <div class="stat-card"><div class="num">100<span class="plus">+</span></div><div class="lab">Diseños DST/PES al mes</div></div>
+      <div class="stat-card"><div class="num">60<span class="plus">+</span></div><div class="lab">Vectores de sublimación al mes</div></div>
+      <div class="stat-card"><div class="num">3</div><div class="lab">Países: Perú · Venezuela · clientes LATAM</div></div>
+    </div>
+    <p class="profile-copy rv">Dirige de principio a fin las operaciones de diseño y producción de <strong>Kingdom</strong>, su negocio textil independiente: ilustración vectorial, programación de bordado industrial, control de calidad y gestión de proveedores para clientes corporativos e industriales. Formado de manera autodidacta bajo mentoría directa de profesionales de la industria — hoy también forma a diseñadores emergentes en el oficio.</p>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div><div class="eyebrow">Ficha 002 — Qué hace</div><h2>Servicios</h2></div>
+      <p>Del archivo vectorial a la prenda terminada: cada pieza pasa por control de puntada, color y encogimiento antes de producción a escala.</p>
+    </div>
+  </div>
+  <div class="services-grid rv">
+    <div class="service"><div class="s-num">/ 01</div><div class="s-title">Digitalización de bordado</div><div class="s-body">Matrices industriales en formatos DST y PES, optimizando densidad y secuencia de puntada para reducir roturas de hilo y tiempo de máquina.</div></div>
+    <div class="service"><div class="s-num">/ 02</div><div class="s-title">Ilustración vectorial</div><div class="s-body">Arte para sublimación de gran formato en Illustrator y Photoshop, desde el concepto hasta el archivo final listo para impresión.</div></div>
+    <div class="service"><div class="s-num">/ 03</div><div class="s-title">Sublimación industrial</div><div class="s-body">Diseño de uniformes deportivos y corporativos con degradados, patrones y ajuste de tela pensado para producción en serie.</div></div>
+    <div class="service"><div class="s-num">/ 04</div><div class="s-title">Control de calidad</div><div class="s-body">Proceso de pruebas previas: valida piezas de bordado y coincidencia de color antes de iniciar la producción a escala.</div></div>
+    <div class="service"><div class="s-num">/ 05</div><div class="s-title">Gestión de producción</div><div class="s-body">Compra de hilo, agujas y tela al por mayor; coordinación de proveedores y planificación de piso de planta.</div></div>
+    <div class="service"><div class="s-num">/ 06</div><div class="s-title">Relación con clientes</div><div class="s-body">Ciclo completo: consulta, cotización, producción y cobro para clientes corporativos e industriales en Venezuela.</div></div>
+  </div>
+</section>
+
+<section id="trabajos">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div><div class="eyebrow">Ficha 003 — Trabajos</div><h2>Portafolio</h2></div>
+      <p>Selección de piezas de bordado y sublimación producidas para clientes deportivos, corporativos e institucionales.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="work-grid rv">
+      <div class="work-item w1" data-full="assets/work-amigoscafe.jpg"><img src="assets/work-amigoscafe.jpg" alt="Uniforme deportivo sublimado — Amigo Café"><div class="work-cap"><div class="wt">Amigo Café FC</div><div class="wc">Sublimación · Kit deportivo</div></div></div>
+      <div class="work-item w2" data-full="assets/work-alcaldia.jpg"><img src="assets/work-alcaldia.jpg" alt="Chaqueta institucional bordada — Alcaldía de San Felipe"><div class="work-cap"><div class="wt">Alcaldía San Felipe</div><div class="wc">Bordado · Merch institucional</div></div></div>
+      <div class="work-item w3" data-full="assets/work-camaro.jpg"><img src="assets/work-camaro.jpg" alt="Diseño de sublimación temática automotriz"><div class="work-cap"><div class="wt">Colección Camaro</div><div class="wc">Sublimación · Diseño temático</div></div></div>
+      <div class="work-item w4" data-full="assets/work-dbs.jpg"><img src="assets/work-dbs.jpg" alt="Diseño de sublimación temática automotriz DBS"><div class="work-cap"><div class="wt">Colección DBS</div><div class="wc">Sublimación · Diseño temático</div></div></div>
+      <div class="work-item w5" data-full="assets/work-bakugo.jpg"><img src="assets/work-bakugo.jpg" alt="Diseño de sublimación temática anime"><div class="work-cap"><div class="wt">Colección Anime</div><div class="wc">Sublimación · Edición fan</div></div></div>
+      <div class="work-item w6" data-full="assets/work-tarjetas.jpg"><img src="assets/work-tarjetas.jpg" alt="Identidad de marca Kingdom — tarjetas de presentación"><div class="work-cap"><div class="wt">Identidad Kingdom</div><div class="wc">Branding · Papelería</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="stitch-div"></div></div>
+
+<section id="experiencia">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div><div class="eyebrow">Ficha 004 — Recorrido</div><h2>Experiencia</h2></div>
+      <p>De la digitalización freelance en Lima al negocio textil independiente en Barquisimeto.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item rv">
+        <div class="tl-date">2021 — Actualidad</div>
+        <div class="tl-role">Diseñador Gráfico Textil Independiente</div>
+        <div class="tl-org">Kingdom (Negocio Propio) · Barquisimeto, Venezuela</div>
+        <ul class="tl-body">
+          <li>Capacidad de producción de 100+ diseños de bordado digitalizados (DST/PES) por mes, optimizando densidad y secuencia de puntada.</li>
+          <li>60+ ilustraciones vectoriales de sublimación de gran formato al mes, desde el concepto hasta el archivo final.</li>
+          <li>Proceso de control de calidad basado en pruebas previas para reducir reimpresiones y retrabajos.</li>
+          <li>Sostuvo el 100% de la supervisión de producción durante la contracción regional de presupuestos de 2026, adaptando el alcance de cada pedido en vez de rechazar trabajo.</li>
+        </ul>
+      </div>
+      <div class="tl-item rv">
+        <div class="tl-date">Oct 2019 — Ene 2021</div>
+        <div class="tl-role">Asociado de Producción Textil</div>
+        <div class="tl-org">Emprendimiento Familiar · Perú / Venezuela</div>
+        <ul class="tl-body">
+          <li>Reorientó el taller de confección hacia mascarillas de tela durante la disrupción del mercado por COVID-19 en 2020.</li>
+          <li>Ejecutó corte, ensamblaje y acabado durante toda la transición, sosteniendo la producción activa.</li>
+        </ul>
+      </div>
+      <div class="tl-item rv">
+        <div class="tl-date">Mar 2019 — Oct 2019</div>
+        <div class="tl-role">Digitalizador de Bordado Freelance</div>
+        <div class="tl-org">Servicios Independientes · Lima, Perú</div>
+        <ul class="tl-body">
+          <li>Servicios de digitalización bajo demanda para múltiples fabricantes de prendas en un mismo edificio industrial.</li>
+          <li>Construcción y corrección de matrices de puntada complejas en Wilcom, optimizando eficiencia de máquina.</li>
+          <li>Ajuste de diseños según encogimiento y comportamiento de tejidos; control de calidad en muestras bordadas.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kingdom" class="brand-section">
+  <div class="wrap">
+    <div class="brand-flex">
+      <div class="brand-copy rv">
+        <div class="eyebrow">Ficha 005 — La marca</div>
+        <h2>Kingdom</h2>
+        <p>Kingdom es el estudio y negocio textil familiar de Ramses en Barquisimeto: diseño, producción, atención al cliente, cobros y compra de materiales, todo bajo un mismo tag de grafiti.</p>
+        <p>Nacida como firma de diseño con identidad callejera, Kingdom atiende hoy a clientes corporativos, deportivos e institucionales — y mira hacia convertirse en un marketplace propio de diseño textil.</p>
+        <div class="brand-links">
+          <a href="https://instagram.com/kingdom_vzla" target="_blank" rel="noopener">Instagram · @kingdom_vzla</a>
+          <a href="https://www.linkedin.com/in/ramses-martinez-bqto" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="glass-card rv">
+        <img src="assets/logo-yellow.png" alt="Logo Kingdom" class="logo-float">
+        <h3>Ficha técnica</h3>
+        <ul>
+          <li><span>Estudio</span><span>Kingdom</span></li>
+          <li><span>Base</span><span>Barquisimeto, VE</span></li>
+          <li><span>Formatos</span><span>DST / PES</span></li>
+          <li><span>Software</span><span>Wilcom · Illustrator</span></li>
+          <li><span>Desde</span><span>2021</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head rv">
+      <div><div class="eyebrow">Ficha 006 — Herramientas</div><h2>Habilidades</h2></div>
+      <p>Dominio autodidacta construido sobre trabajo de producción real, 2021–2023.</p>
+    </div>
+    <div class="skills-wrap">
+      <div>
+        <div class="skill-row rv" style="--w:96%"><div class="skill-top"><span>Wilcom Embroidery Studio</span><span class="lvl">Experto</span></div><div class="skill-bar"><div class="skill-fill"></div></div></div>
+        <div class="skill-row rv" style="--w:92%"><div class="skill-top"><span>Adobe Illustrator</span><span class="lvl">Experto</span></div><div class="skill-bar"><div class="skill-fill"></div></div></div>
+        <div class="skill-row rv" style="--w:88%"><div class="skill-top"><span>Adobe Photoshop</span><span class="lvl">Experto</span></div><div class="skill-bar"><div class="skill-fill"></div></div></div>
+      </div>
+      <div>
+        <div class="skill-row rv" style="--w:60%"><div class="skill-top"><span>Blender 3D</span><span class="lvl">Intermedio</span></div><div class="skill-bar"><div class="skill-fill"></div></div></div>
+        <div class="skill-row rv" style="--w:45%"><div class="skill-top"><span>HTML / CSS / JavaScript</span><span class="lvl">Aprendiendo</span></div><div class="skill-bar"><div class="skill-fill"></div></div></div>
+        <div class="skill-row rv" style="--w:55%"><div class="skill-top"><span>Inglés técnico</span><span class="lvl">En progreso</span></div><div class="skill-bar"><div class="skill-fill"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="rv">
+        <div class="eyebrow" style="color:var(--yellow)">Ficha 007 — Contacto</div>
+        <h2>Hablemos de tu próxima producción</h2>
+        <p class="lead">Disponible para proyectos de bordado industrial, sublimación e identidad de marca textil — y abierto a nuevas oportunidades como diseñador gráfico.</p>
+        <a class="cta-btn" href="https://wa.me/584241092124" target="_blank" rel="noopener">Escribir a Kingdom →</a>
+        <div class="contact-list">
+          <a href="mailto:kingdombrandbqto@gmail.com"><span class="k">Correo</span><span class="v">kingdombrandbqto@gmail.com</span></a>
+          <a href="https://wa.me/584241092124"><span class="k">Teléfono</span><span class="v">+58 0412-1092124</span></a>
+          <div><span class="k">Ubicación</span><span class="v">Barquisimeto, Venezuela</span></div>
+          <a href="https://instagram.com/kingdom_vzla" target="_blank" rel="noopener"><span class="k">Instagram</span><span class="v">@kingdom_vzla</span></a>
+          <a href="https://www.linkedin.com/in/ramses-martinez-bqto" target="_blank" rel="noopener"><span class="k">LinkedIn</span><span class="v">ramses-martinez-bqto</span></a>
+          <a href="https://www.facebook.com/kingdom bqto" target="_blank" rel="noopener"><span class="k">Facebook</span><span class="v">kingdom bqto</span></a>
+          <a href="https://www.tiktok.com/@kingdom_vzla" target="_blank" rel="noopener"><span class="k">Tiktok</span><span class="v">kingdom</span></a>
+          <a href="https://www.Threads.com/kingdom_vzla" target="_blank" rel="noopener"><span class="k">Threads</span><span class="v">kingdom_vzla</span></a>
+          <a href="https://drive.google.com/file/d/10KQF5rr5QT9E7Qtyob0UIiuXTiVKnLw6/view?usp=drive_link" target="_blank" rel="noopener"><span class="k">Drive</span><span class="v">Portafolio</span></a>
+        </div>
+      </div>
+      <div class="contact-card rv">
+        <div class="eyebrow">Idiomas</div>
+        <p>Comunicación con clientes y proveedores en ambos idiomas, con foco técnico en inglés escrito.</p>
+        <div class="lang-row"><span>Español</span><small>Nativo</small></div>
+        <div class="lang-row"><span>Inglés</span><small>Intermedio · técnico</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; width:100%;">
+    <span><b>Kingdom</b> © 2026 — Ramses Martínez</span>
+    <span>Diseño textil · Barquisimeto, Venezuela</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="close" id="lbClose">CERRAR ✕</button>
+  <img src="" alt="" id="lbImg">
+</div>
+
+<script>
+(function(){
+  // nav scroll state
+  const nav = document.getElementById('siteNav');
+  const rail = document.getElementById('threadRail');
+  function onScroll(){
+    const y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 60);
+    const doc = document.documentElement;
+    const pct = (y / (doc.scrollHeight - doc.clientHeight)) * 100;
+    rail.style.setProperty('--fill', Math.min(pct,100) + '%');
+    rail.classList.add('filled');
+    const bg = document.getElementById('heroBg');
+    if(bg){ bg.style.transform = 'scale(1.12) translateY(' + Math.min(y*0.12, 90) + 'px)'; }
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // burger menu
+  const burger = document.getElementById('burger');
+  const links = document.getElementById('navLinks');
+  burger.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // reveal on scroll
+  const rv = document.querySelectorAll('.rv, .skill-row');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.14});
+  rv.forEach(el => io.observe(el));
+
+  // stagger children of grids that carry .rv on the wrapper
+  document.querySelectorAll('.stats-grid.rv, .work-grid.rv, .services-grid.rv').forEach(group => {
+    Array.from(group.children).forEach((child, i) => {
+      child.style.transitionDelay = (i*70) + 'ms';
+    });
+  });
+
+  // lightbox
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  document.querySelectorAll('.work-item').forEach(item => {
+    item.addEventListener('click', () => {
+      lbImg.src = item.getAttribute('data-full');
+      lbImg.alt = item.querySelector('img').alt;
+      lb.classList.add('open');
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('open'));
+  lb.addEventListener('click', (e) => { if(e.target === lb) lb.classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') lb.classList.remove('open'); });
+})();
+</script>
+</body>
+</html>
